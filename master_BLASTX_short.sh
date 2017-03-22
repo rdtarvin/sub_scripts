@@ -1,0 +1,1 @@
+blastx -query $WORK/all_soapAssemblies/XX_40_out.contig -db $WORK/databases/YY -out $SCRATCH/blast_soap/XX_YY_blastx.outfmt6 -num_threads 12 -max_target_seqs 1 -evalue 1e-5 -outfmt "6 std qseqid sscinames stitle sblastnames"

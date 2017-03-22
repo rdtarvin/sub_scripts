@@ -1,0 +1,28 @@
+#!/bin/bash
+#
+# Simple SGE script for submitting multiple serial
+# jobs (e.g. parametric studies) using a script wrapper
+# to launch the jobs.
+#
+# To use, build the launcher executable and your
+# serial application(s) and place them in your WORKDIR
+# directory.  Then, edit the CONTROL_FILE to specify 
+# each executable per process.
+#-------------------------------------------------------
+#-------------------------------------------------------
+# 
+#         <------ Setup Parameters ------>
+#
+#$ -N EtricolorChaL_V2551
+#$ -pe 12way 24
+#$ -q largemem
+#$ -o EtricolorChaL_V2551.o$JOB_ID
+#$ -l h_rt=24:00:00
+#$ -V
+#$ -cwd
+
+
+module load launcher
+module load velvet; module load oases
+
+python /opt/apps/oases/0.2.08/scripts/oases_pipeline.py -m 25 -M 51 -s 23 -g 51 -d '-shortPaired -fastq -separate ../cleanreads/EtricolorChaL_R1.fastq ../cleanreads/EtricolorChaL_R2.fastq' -o Assem_EtricolorChaL -c

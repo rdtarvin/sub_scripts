@@ -1,0 +1,33 @@
+#!/bin/bash
+#$ -A Dendrobatidae                # Charge project against directive 
+#$ -V                                    # Inherit submission environment 
+#$ -cwd                                # Use current working directory 
+#$ -N $1_Trinity                  # Job name 
+#$ -j y                                  # Combine STDOUT and STDERR 
+#$ -o $JOB_NAME.o$JOB_ID           # Name of the output file (eg. myMPI.oJobID) 
+#$ -pe 24way 24                     # Request 24 processors, at a rate of 24 proc/node (so 1 node) 
+#$ -q largemem                      # Use 'normal' queue ('development' for testing, 'largemem' for lots-o-memory) 
+#$ -l h_rt=24:00:00                 # Run time (hh:mm:ss) 
+#$ -M rdtarvin@gmail.com           # Email 
+#$ -m baes                            # Notifications at beginning and end of job
+
+echo Running on host `hostname`
+echo Time is `date`
+
+
+module load bowtie/2.1.0
+module load bowtie/1.0.0
+module load perl
+module load bioperl
+module load java64
+module load trinityrnaseq/r20130225
+
+echo Directory is `pwd`
+ulimit -s unlimited
+
+Trinity.pl --seqType fq --JM 600G --left $2 \
+--right $3 --CPU 24 --SS_lib_type RF \
+--inchworm_cpu 24  --bflyCPU 24 --bflyHeapSpaceMax 30G --bflyHeapSpaceInit 6G --bflyGCThreads 4 \
+--bfly_opts --edge-thr=0.05 --output $1_R1_R2_out2
+
+#FASTEST

@@ -1,0 +1,18 @@
+#!/bin/bash
+#$ -A Dendrobatidae                # Charge project against directive
+#$ -V                                    # Inherit submission environment
+#$ -cwd                                # Use current working directory
+#$ -N align                  # Job name
+#$ -j y                                  # Combine STDOUT and STDERR
+#$ -o $JOB_NAME.o$JOB_ID           # Name of the output file (eg. myMPI.oJobID)
+#$ -pe 2way 12                     # Request 24 processors, at a rate of 24 proc/node (so 1 node)
+#$ -q normal                      # Use 'normal' queue ('development' for testing, 'largemem' for lots-o-memory)
+#$ -l h_rt=24:00:00                 # Run time (hh:mm:ss)
+#$ -M rdtarvin@gmail.com           # Email
+#$ -m baes                            # Notifications at beginning and end of job
+
+module load bwa
+
+#bwa aln -t 6 -f AbilinguisBMGLS_R1.sai Nav1references.fasta AbilinguisBMGLS_R1.fastq
+#bwa aln -t 6 -f AbilinguisBMGLS_R2.sai Nav1references.fasta AbilinguisBMGLS_R2.fastq
+bwa sampe -f AbilinguisBMGLS.sam Nav1references.fasta AbilinguisBMGLS_R1.sai AbilinguisBMGLS_R2.sai AbilinguisBMGLS_R1.fastq AbilinguisBMGLS_R2.fastq
