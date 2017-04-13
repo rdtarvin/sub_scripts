@@ -13,7 +13,7 @@ fi
 
 echo -n > submission_$(date +"%Y_%m_%d")_m${missmatch}.job
 
-for reads in AeleCapBML_all AfemLumGL_all AhahCanBMGS_all AkinYanL_all AparRNBMGLS_all AsylCamBL_all AtalCeiBML_all AzapAhuGS_all AzapPasBMGLS_all CentCapBML_all CfugCanBMGLS_all CgraCamBL_all DcapZumMGLS_all EantStPBMGL_all EbouAraBMGLS_all EdarMinBMGLS_all EmacRPBMGLS_all Etricolor_SC027-SC029GLS-EtriBMGL_all GrioCapBML_all HawaOtoL_all HjacMolLS_all HlepCamBL_all HmacCanBML_all HnexRNBML_all HpicCapBML_all HpulBaeL_all HverJorL_all InebTexBML_all PwniStLL_all BbombinaL_ERR632222  BorientalisL_ERR632225  BvariegataL_ERR632223-ERR632224   NviridescensBHs_SRR653283-SRR653292-SRR653294 AcarolinensisB_SRR579556 Pnigomaculata_gonad_SRR1269553 HretardatusB_DRR016729-DRR016731 RpipiensBKgL_all PlessonaeHT_SRR1171014-SRR1164893 Azeteki_GS_SRR957178-SRR957179-SRR957174 Rclamitans_SRR493674
+for reads in AeleCapBML_all AfemLumGL_all AhahCanBMGS_all AkinYanL_all AparRNBMGLS_all AsylCamBL_all AtalCeiBML_all AzapAhuGS_all AzapPasBMGLS_all CentCapBML_all CfugCanBMGLS_all CgraCamBL_all DcapZumMGLS_all EantStPBMGL_all EbouAraBMGLS_all EdarMinBMGLS_all EmacRPBMGLS_all Etricolor_SC027-SC029GLS-EtriBMGL_all GrioCapBML_all HawaOtoL_all HjacMolLS_all HlepCamBL_all HmacCanBML_all HnexRNBML_all HpicCapBML_all HpulBaeL_all HverJorL_all InebTexBML_all PwniStLL_all BbombinaL_ERR632222  BorientalisL_ERR632225  BvariegataL_ERR632223-ERR632224   NviridescensBHs_SRR653283-SRR653292-SRR653294 AcarolinensisB_SRR579556 Pnigomaculata_gonad_SRR1269553 HretardatusB_DRR016729-DRR016731 RpipiensBKgL_all PlessonaeHT_SRR1171014-SRR1164893 Azeteki_GS_SRR957178-SRR957179-SRR957174 Rclamitans_SRR493674 Cfitzingeri_SRR1560911
 do
 	## get the correct directory name
 	if [ ${reads} == PlessonaeHT_SRR1171014-SRR1164893 ]; then 	
@@ -37,7 +37,7 @@ do
 	mkdir $dir
 	#cd $dir
 	if [ ${reads} == Etricolor_SC027-SC029GLS-EtriBMGL_all ]; then
-		cd ${dir}; launcher_creator.py -n ${genes}_Etri -q normal -t 20:00:00 -b "/work/02576/rdtarvin/lonestar/MITObim/MITObim_1.8.pl --mirapath /work/02576/rdtarvin/lonestar/mira/bin/ -end 100 --verbose -sample ${reads} -ref ${genes} -readpool /scratch/02576/rdtarvin/dendrobatidae/${prefix}.fastq --clean -kbait ${kbait} --missmatch ${missmatch} --quick $WORK/gene_dbs/${genes}.fa"; sbatch ${genes}_Etri.slurm; cd ..
+		cd ${dir}; launcher_creator.py -n ${genes}_Etri -q normal -t 48:00:00 -b "/work/02576/rdtarvin/lonestar/MITObim/MITObim_1.8.pl --mirapath /work/02576/rdtarvin/lonestar/mira/bin/ -end 100 --verbose -sample ${reads} -ref ${genes} -readpool /scratch/02576/rdtarvin/dendrobatidae/${prefix}.fastq --clean -kbait ${kbait} --missmatch ${missmatch} --quick $WORK/gene_dbs/${genes}.fa"; sbatch ${genes}_Etri.slurm; cd ..
 		echo "executing Etri"
 	elif [ -a /scratch/02576/rdtarvin/dendrobatidae/${prefix}.fastq ]; then
 		echo "cd ${dir}; /work/02576/rdtarvin/lonestar/MITObim/MITObim_1.8.pl --mirapath /work/02576/rdtarvin/lonestar/mira/bin/ -end 100 --verbose -sample ${reads} -ref ${genes} -readpool /scratch/02576/rdtarvin/dendrobatidae/${prefix}.fastq --clean -kbait ${kbait} --missmatch ${missmatch} --quick $WORK/gene_dbs/${genes}.fa 2> ${reads}_stderr.log 1> ${reads}_stdout.log" >> submission_$(date +"%Y_%m_%d")_m${missmatch}.job 
